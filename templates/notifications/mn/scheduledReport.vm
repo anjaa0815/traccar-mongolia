@@ -1,0 +1,9 @@
+#set($subject = "Тайлан")
+#set($digest = "Товлосон тайлан бэлэн боллоо: $webUrl$reportUrl")
+<!DOCTYPE html>
+<html>
+<body>
+Товлосон тайлан бэлэн боллоо:<br>
+<a href="$webUrl$reportUrl">$webUrl$reportUrl</a><br>
+</body>
+</html>

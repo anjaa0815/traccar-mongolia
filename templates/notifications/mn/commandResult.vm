@@ -1,0 +1,13 @@
+#set($subject = "$esc.html($device.name): командын хариу ирлээ")
+#set($digest = "$device.name командын хариу ирлээ: $position.getString('result') ($dateTool.format('yyyy-MM-dd HH:mm:ss', $event.eventTime, $locale, $timezone))")
+<!DOCTYPE html>
+<html>
+<body>
+Төхөөрөмж: $esc.html($device.name)<br>
+Үр дүн: $esc.html($position.getString('result'))<br>
+Цаг: $dateTool.format('yyyy-MM-dd HH:mm:ss', $event.eventTime, $locale, $timezone)<br>
+Холбоос: <a href="$webUrl/event/$event.id">$webUrl/event/$event.id</a><br>
+<br>
+<a href="$webUrl/settings/notifications?token=$token">Мэдэгдэл цуцлах</a>
+</body>
+</html>

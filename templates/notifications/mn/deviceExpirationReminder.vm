@@ -1,0 +1,8 @@
+#set($subject = "Төхөөрөмжийн хугацаа дуусах сануулга")
+#set($digest = "$device.name төхөөрөмжийн хугацаа $dateTool.format('yyyy-MM-dd', $expiration, $locale, $timezone) өдөр дуусна")
+<!DOCTYPE html>
+<html>
+<body>
+Таны $esc.html($device.name) төхөөрөмжийн хугацаа $dateTool.format('yyyy-MM-dd', $expiration, $locale, $timezone) өдөр дуусна.
+</body>
+</html>

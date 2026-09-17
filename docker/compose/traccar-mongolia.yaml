@@ -1,0 +1,82 @@
+# Монголын нөхцөлд зориулсан жишээ Docker Compose тохиргоо.
+# Суурь нь traccar-mysql.yaml, гагцхүү Монголд шаардлагатай нэмэлт
+# орчны хувьсагчид (цагийн бүс, геокодлогч, Telegram/SMS мэдэгдэл) орсон.
+# Ашиглахын өмнө NOTIFICATOR_TELEGRAM_*, SMS_HTTP_* утгуудыг өөрийн
+# бодит bot token / SMS gateway-гаараа солино уу.
+
+services:
+
+  database:
+    image: mysql:lts
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Ulaanbaatar
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: traccar
+      MYSQL_USER: traccar
+      MYSQL_PASSWORD: traccar
+    volumes:
+      - /opt/traccar/data:/var/lib/mysql
+
+  traccar:
+    image: traccar/traccar:latest
+    restart: unless-stopped
+    depends_on:
+      - database
+    environment:
+      TZ: Asia/Ulaanbaatar
+      CONFIG_USE_ENVIRONMENT_VARIABLES: "true"
+      DATABASE_DRIVER: com.mysql.cj.jdbc.Driver
+      DATABASE_URL: >-
+        jdbc:mysql://database:3306/traccar
+        ?zeroDateTimeBehavior=round
+        &serverTimezone=UTC
+        &allowPublicKeyRetrieval=true
+        &useSSL=false
+        &allowMultiQueries=true
+        &autoReconnect=true
+        &useUnicode=yes
+        &characterEncoding=UTF-8
+        &sessionVariables=sql_mode=''
+      DATABASE_USER: traccar
+      DATABASE_PASSWORD: traccar
+
+      # Хямд/хуучин GPS төхөөрөмжүүд орон нутгийн цагаар (UTC биш) байршил
+      # илгээдэг тохиолдол их байдаг тул декодлох цагийн бүсийг тодорхой заана.
+      DECODER_TIMEZONE: Asia/Ulaanbaatar
+
+      # Монголыг бүрэн хамардаг үнэгүй OpenStreetMap/Nominatim геокодлогч.
+      GEOCODER_TYPE: nominatim
+
+      # Telegram-аар мэдэгдэл илгээх (BotFather-с bot token авна).
+      NOTIFICATOR_TELEGRAM_KEY: "ТАНЫ_BOT_TOKEN"
+      NOTIFICATOR_TELEGRAM_CHAT_ID: "ТАНЫ_CHAT_ID"
+
+      # Монголын дотоод HTTP SMS gateway ашиглах бол доорхыг бөглөнө.
+      # {phone} болон {message} placeholder-уудыг өөрийн gateway-н
+      # шаардсан query/JSON бүтэцтэй сольж бичнэ.
+      # SMS_HTTP_URL: "https://sms.example.mn/api/send?to={phone}&text={message}"
+      # SMS_HTTP_AUTHORIZATION_HEADER: "Authorization"
+      # SMS_HTTP_AUTHORIZATION: "Bearer ТАНЫ_API_KEY"
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:8082/api/health" ]
+      interval: 2m
+      timeout: 5s
+      start_period: 1h
+      retries: 3
+    ports:
+      - "8082:8082"
+      - "5000-5500:5000-5500"
+    volumes:
+      - /opt/traccar/logs:/opt/traccar/logs
+
+  autoheal:
+    image: willfarrell/autoheal:latest
+    restart: always
+    environment:
+      TZ: Asia/Ulaanbaatar
+      AUTOHEAL_CONTAINER_LABEL: all
+      AUTOHEAL_INTERVAL: 60
+      AUTOHEAL_START_PERIOD: 3600
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro

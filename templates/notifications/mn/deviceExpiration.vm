@@ -1,0 +1,8 @@
+#set($subject = "Төхөөрөмжийн хугацаа дууслаа")
+#set($digest = "$device.name төхөөрөмжийн хугацаа дууслаа")
+<!DOCTYPE html>
+<html>
+<body>
+Таны $esc.html($device.name) төхөөрөмжийн хугацаа дууслаа.
+</body>
+</html>

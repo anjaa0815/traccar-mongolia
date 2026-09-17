@@ -1,0 +1,12 @@
+#set($subject = "$esc.html($device.name): дараалсан команд илгээгдлээ")
+#set($digest = "$device.name рүү дараалсан команд илгээгдлээ ($dateTool.format('yyyy-MM-dd HH:mm:ss', $event.eventTime, $locale, $timezone))")
+<!DOCTYPE html>
+<html>
+<body>
+Төхөөрөмж: $esc.html($device.name)<br>
+Дараалсан команд илгээгдлээ<br>
+Цаг: $dateTool.format('yyyy-MM-dd HH:mm:ss', $event.eventTime, $locale, $timezone)<br>
+<br>
+<a href="$webUrl/settings/notifications?token=$token">Мэдэгдэл цуцлах</a>
+</body>
+</html>

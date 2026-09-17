@@ -1,0 +1,14 @@
+#set($subject = "$esc.html($device.name): медиа файл ирлээ")
+#set($digest = "$device.name $event.getString('media') ирлээ: $event.getString('file') ($dateTool.format('yyyy-MM-dd HH:mm:ss', $event.eventTime, $locale, $timezone))")
+<!DOCTYPE html>
+<html>
+<body>
+Төхөөрөмж: $esc.html($device.name)<br>
+Төрөл: $esc.html($event.getString('media'))<br>
+Файл: <a href="$webUrl/api/media/$device.uniqueId/$esc.html($event.getString('file'))">$esc.html($event.getString('file'))</a><br>
+Цаг: $dateTool.format('yyyy-MM-dd HH:mm:ss', $event.eventTime, $locale, $timezone)<br>
+Холбоос: <a href="$webUrl/event/$event.id">$webUrl/event/$event.id</a><br>
+<br>
+<a href="$webUrl/settings/notifications?token=$token">Мэдэгдэл цуцлах</a>
+</body>
+</html>

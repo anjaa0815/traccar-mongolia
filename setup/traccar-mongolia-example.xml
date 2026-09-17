@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+<properties>
+
+    <!--
+        Монголын нөхцөлд тохируулсан жишээ тохиргоо.
+        Энэ файлыг setup/traccar.xml-тэй хослуулан ашиглана уу (утгуудыг тэнд хуулна),
+        эсвэл эндхийн key/value-г шууд traccar.xml-руу нэмнэ үү.
+        Бүрэн жагсаалт: https://www.traccar.org/configuration-file/
+    -->
+
+    <entry key='database.driver'>org.h2.Driver</entry>
+    <entry key='database.url'>jdbc:h2:./data/database</entry>
+    <entry key='database.user'>sa</entry>
+    <entry key='database.password' />
+
+    <!--
+        Хямд/хуучин GPS төхөөрөмжүүд (жишээ нь GT06, TK103 гэх мэт) байршлын мэдээллийг
+        орон нутгийн цагаар (UTC биш) илгээдэг тохиолдол их байдаг тул декодлох цагийн
+        бүсийг Улаанбаатарын цагаар тодорхой заана (UTC+8, зун-өвлийн цагийн шилжилтгүй).
+    -->
+    <entry key='decoder.timezone'>Asia/Ulaanbaatar</entry>
+
+    <!--
+        Үнэгүй, дэлхийн бүх орон (Монголыг оролцуулан) хамардаг OpenStreetMap/Nominatim
+        геокодлогч. Хаяг тодорхойлолт сайжруулах бол HERE/Google түлхүүр ашиглаж болно.
+    -->
+    <entry key='geocoder.type'>nominatim</entry>
+
+    <!--
+        Telegram-аар мэдэгдэл илгээх (BotFather-с bot token авч, чат/сувгийн ID-г тавина).
+        Монголд Telegram-ийн хандалт ихэвчлэн саадгүй тул нэмэлт proxy шаардлагагүй,
+        харин корпорацийн сүлжээнд хаалттай бол notificator.telegram.proxy.url-г ашиглана.
+    -->
+    <entry key='notificator.telegram.key'>ТАНЫ_BOT_TOKEN</entry>
+    <entry key='notificator.telegram.chatId'>ТАНЫ_CHAT_ID</entry>
+    <!--<entry key='notificator.telegram.proxy.url'>http://proxy.example.mn:8080</entry>-->
+
+    <!--
+        SMS мэдэгдэл: Монголын дотоод HTTP SMS gateway (жишээ нь Mobicom/Unitel/Skytel-ийн
+        корпорацийн SMS API эсвэл өөрийн gateway) ашиглах бол дараах ерөнхий HTTP клиентийг
+        тохируулна. {phone} болон {message} гэсэн placeholder-уудыг өөрийн gateway-н шаардсан
+        бодит query/JSON бүтэцтэй сольж бичнэ.
+    -->
+    <!--<entry key='sms.http.url'>https://sms.example.mn/api/send?to={phone}&text={message}</entry>-->
+    <!--<entry key='sms.http.authorizationHeader'>Authorization</entry>-->
+    <!--<entry key='sms.http.authorization'>Bearer ТАНЫ_API_KEY</entry>-->
+
+</properties>

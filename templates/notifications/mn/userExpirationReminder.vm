@@ -1,0 +1,8 @@
+#set($subject = "Хэрэглэгчийн эрхийн хугацаа дуусах сануулга")
+#set($digest = "Хэрэглэгчийн эрхийн хугацаа $dateTool.format('yyyy-MM-dd', $expiration, $locale, $timezone) өдөр дуусна")
+<!DOCTYPE html>
+<html>
+<body>
+Таны хэрэглэгчийн эрхийн хугацаа $dateTool.format('yyyy-MM-dd', $expiration, $locale, $timezone) өдөр дуусна.
+</body>
+</html>
