@@ -139,6 +139,14 @@ public class WebServer implements LifecycleObject {
         baseHolder.setInitParameter("cacheControl", cache);
         servletHandler.addServlet(baseHolder, "/");
 
+        // index.html must always be revalidated, unlike hashed /assets/* files, otherwise
+        // browsers keep serving a stale entry point that references deleted JS/CSS chunks
+        // after a new frontend build is deployed.
+        ServletHolder indexHolder = new ServletHolder(ResourceServlet.class);
+        indexHolder.setInitParameter("dirAllowed", "false");
+        indexHolder.setInitParameter("cacheControl", "no-cache");
+        servletHandler.addServlet(indexHolder, "/index.html");
+
         Path override = Paths.get(config.getString(Keys.WEB_OVERRIDE));
         Files.createDirectories(override);
         Path overrideReal = override.toRealPath(LinkOption.NOFOLLOW_LINKS);
