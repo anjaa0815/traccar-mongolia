@@ -47,10 +47,10 @@ const useStyles = makeStyles()((theme) => ({
     color: 'rgba(255, 255, 255, 0.75)',
   },
   buttonActive: {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
     '&:hover': {
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.secondary.main,
     },
   },
 }));
