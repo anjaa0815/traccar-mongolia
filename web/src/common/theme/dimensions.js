@@ -1,4 +1,5 @@
 export default {
+  appSidebarWidth: '72px',
   sidebarWidth: '28%',
   sidebarWidthTablet: '52px',
   drawerWidthDesktop: '360px',

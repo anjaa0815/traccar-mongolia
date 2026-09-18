@@ -5,7 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useDispatch, useSelector } from 'react-redux';
 import DeviceList from './DeviceList';
-import BottomMenu from '../common/components/BottomMenu';
 import StatusCard from '../common/components/StatusCard';
 import { devicesActions } from '../store';
 import usePersistedState from '../common/util/usePersistedState';
@@ -26,7 +25,7 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: 'column',
     [theme.breakpoints.up('md')]: {
       position: 'fixed',
-      left: 0,
+      left: theme.dimensions.appSidebarWidth,
       top: 0,
       height: `calc(100% - ${theme.spacing(3)})`,
       width: theme.dimensions.drawerWidthDesktop,
@@ -48,13 +47,6 @@ const useStyles = makeStyles()((theme) => ({
       borderBottomRightRadius: 0,
       borderBottom: 'none',
     },
-  },
-  footer: {
-    pointerEvents: 'auto',
-    zIndex: 5,
-    marginTop: theme.spacing(1.5),
-    borderRadius: theme.shape.borderRadius,
-    overflow: 'hidden',
   },
   middle: {
     flex: 1,
@@ -176,11 +168,6 @@ const MainPage = () => {
             <DeviceList devices={filteredDevices} />
           </Paper>
         </div>
-        {desktop && (
-          <div className={classes.footer}>
-            <BottomMenu />
-          </div>
-        )}
       </div>
       <EventsDrawer open={eventsOpen} onClose={() => setEventsOpen(false)} />
       {selectedDeviceId && (

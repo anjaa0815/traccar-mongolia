@@ -34,11 +34,12 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: 'column',
     position: 'fixed',
     zIndex: 3,
-    left: 0,
+    left: theme.dimensions.appSidebarWidth,
     top: 0,
     margin: theme.spacing(1.5),
     width: theme.dimensions.drawerWidthDesktop,
     [theme.breakpoints.down('md')]: {
+      left: 0,
       width: '100%',
       margin: 0,
     },
