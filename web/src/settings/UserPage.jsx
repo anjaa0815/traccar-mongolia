@@ -231,7 +231,7 @@ const UserPage = () => {
                 <InputLabel>{t('settingsSpeedUnit')}</InputLabel>
                 <Select
                   label={t('settingsSpeedUnit')}
-                  value={(item.attributes && item.attributes.speedUnit) || 'kn'}
+                  value={(item.attributes && item.attributes.speedUnit) || 'kmh'}
                   onChange={(e) =>
                     setItem({
                       ...item,
