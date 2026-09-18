@@ -9,11 +9,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MapIcon from '@mui/icons-material/Map';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 import { sessionActions } from '../../store';
 import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
 import { nativePostMessage } from './NativeInterface';
+import useDarkMode from '../util/useDarkMode';
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -68,6 +71,8 @@ const AppSidebar = () => {
   const user = useSelector((state) => state.session.user);
   const socket = useSelector((state) => state.session.socket);
   const selectedDeviceId = useSelector((state) => state.devices.selectedId);
+
+  const [darkMode, toggleDarkMode] = useDarkMode();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -196,6 +201,11 @@ const AppSidebar = () => {
         )}
       </Box>
       <Box className={classes.items}>
+        <Tooltip title={t('settingsDarkMode')} placement="right">
+          <IconButton className={classes.button} onClick={toggleDarkMode}>
+            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
+        </Tooltip>
         {readonly ? (
           <Tooltip title={t('loginLogout')} placement="right">
             <IconButton className={classes.button} onClick={(e) => handleSelection(e, 'logout')}>

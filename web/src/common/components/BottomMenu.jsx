@@ -7,6 +7,7 @@ import {
   BottomNavigationAction,
   Menu,
   MenuItem,
+  ListItemIcon,
   Typography,
   Badge,
 } from '@mui/material';
@@ -16,11 +17,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MapIcon from '@mui/icons-material/Map';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 import { sessionActions } from '../../store';
 import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
 import { nativePostMessage } from './NativeInterface';
+import useDarkMode from '../util/useDarkMode';
 
 const BottomMenu = () => {
   const navigate = useNavigate();
@@ -34,6 +38,8 @@ const BottomMenu = () => {
   const user = useSelector((state) => state.session.user);
   const socket = useSelector((state) => state.session.socket);
   const selectedDeviceId = useSelector((state) => state.devices.selectedId);
+
+  const [darkMode, toggleDarkMode] = useDarkMode();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -164,6 +170,15 @@ const BottomMenu = () => {
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
         <MenuItem onClick={handleAccount}>
           <Typography color="textPrimary">{t('settingsUser')}</Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            toggleDarkMode();
+            setAnchorEl(null);
+          }}
+        >
+          <ListItemIcon>{darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}</ListItemIcon>
+          <Typography color="textPrimary">{t('settingsDarkMode')}</Typography>
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <Typography color="error">{t('loginLogout')}</Typography>
