@@ -393,6 +393,7 @@
     "mapCustomArcgis": "Custom (ArcGIS)",
     "mapCustomLabel": "Custom Map",
     "mapCarto": "Carto Basemaps",
+    "mapCartoLight": "Carto Light",
     "mapOsm": "OpenStreetMap",
     "mapGoogleRoad": "Google Road",
     "mapGoogleHybrid": "Google Hybrid",

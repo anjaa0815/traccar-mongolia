@@ -99,6 +99,19 @@ export default () => {
         available: true,
       },
       {
+        id: 'cartoLight',
+        title: t('mapCartoLight'),
+        style: styleCustom({
+          tiles: ['a', 'b', 'c', 'd'].map(
+            (i) => `https://${i}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}@2x.png`,
+          ),
+          maxZoom: 22,
+          attribution:
+            '© <a target="_top" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a target="_top" rel="noopener" href="https://carto.com/attribution">CARTO</a>',
+        }),
+        available: true,
+      },
+      {
         id: 'googleRoad',
         title: t('mapGoogleRoad'),
         style: styleCustom({

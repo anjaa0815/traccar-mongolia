@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useDispatch, useSelector } from 'react-redux';
 import DeviceList from './DeviceList';
+import DeviceStats from './DeviceStats';
 import StatusCard from '../common/components/StatusCard';
 import { devicesActions } from '../store';
 import usePersistedState from '../common/util/usePersistedState';
@@ -62,6 +63,7 @@ const useStyles = makeStyles()((theme) => ({
     gridArea: '1 / 1',
     zIndex: 4,
     display: 'flex',
+    flexDirection: 'column',
     minHeight: 0,
     [theme.breakpoints.up('md')]: {
       borderBottomLeftRadius: theme.shape.borderRadius,
@@ -70,6 +72,12 @@ const useStyles = makeStyles()((theme) => ({
       borderTopRightRadius: 0,
       overflow: 'hidden',
     },
+  },
+  deviceListWrapper: {
+    flex: 1,
+    minHeight: 0,
+    display: 'flex',
+    borderTop: `1px solid ${theme.palette.divider}`,
   },
 }));
 
@@ -165,7 +173,10 @@ const MainPage = () => {
             className={classes.contentList}
             style={devicesOpen ? {} : { visibility: 'hidden' }}
           >
-            <DeviceList devices={filteredDevices} />
+            <DeviceStats devices={filteredDevices} />
+            <div className={classes.deviceListWrapper}>
+              <DeviceList devices={filteredDevices} />
+            </div>
           </Paper>
         </div>
       </div>

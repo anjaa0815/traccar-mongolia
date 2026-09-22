@@ -393,6 +393,7 @@
   "mapCustomArcgis": "Захиалгат (ArcGIS)",
   "mapCustomLabel": "Захиалгат зураг",
   "mapCarto": "Carto суурь зураг",
+  "mapCartoLight": "Carto цайвар зураг",
   "mapOsm": "OpenStreetMap",
   "mapGoogleRoad": "Google зам",
   "mapGoogleHybrid": "Google хосолсон",
